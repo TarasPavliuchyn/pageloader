@@ -11,6 +11,7 @@ import java.io.IOException;
 @Slf4j
 public class PageLoadTask implements Runnable {
 
+    private static final String HREF = "href";
     private Element link;
     private ConsoleService consoleService;
 
@@ -21,11 +22,10 @@ public class PageLoadTask implements Runnable {
 
     @Override
     public void run() {
-        String href = link.attr("href");
+        String href = link.attr(HREF);
         try {
             Document page = Jsoup.connect(href).get();
             consoleService.writeToConsole(page.html());
-            System.out.println(Thread.currentThread().getName());
             if (log.isInfoEnabled()) {
                 log.info("\nPage {} was successfully loaded by {}", href, Thread.currentThread().getName());
             }

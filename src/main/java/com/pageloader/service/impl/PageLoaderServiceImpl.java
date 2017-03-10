@@ -23,7 +23,7 @@ public class PageLoaderServiceImpl implements PageLoaderService {
     private AtomicInteger atomicInteger = new AtomicInteger();
 
     @Autowired
-    private PageContextFactory contentFactory;
+    private PageContextFactory contextFactory;
     @Autowired
     private ConsoleService consoleService;
 
@@ -33,7 +33,7 @@ public class PageLoaderServiceImpl implements PageLoaderService {
             log.info("Try to load {} pages", pageNumber);
         }
         try {
-            Elements elements = contentFactory.getContext(Attribute.HREF);
+            Elements elements = contextFactory.getContext(Attribute.HREF);
             elements.stream()
                     .limit(pageNumber)
                     .map(link -> new PageLoadTask(link, consoleService))
